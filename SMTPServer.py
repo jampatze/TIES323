@@ -56,7 +56,7 @@ def handle_smtp_message(data):
     else:
         reply = '503'
 
-    print('Sent: ' + reply)
+    #print('Sent: ' + reply)
     return reply + ' \n'
 
 
