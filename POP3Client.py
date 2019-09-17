@@ -1,7 +1,6 @@
 import socket
 
 # Fetches emails from a POP3-server.
-# Requires stunnel to be turned on.
 # Author: Jami Laamanen
 # Date: 13.9.2019
 
@@ -14,7 +13,7 @@ PORT = 110
 def handle_message(data):
     message = data.decode('UTF-8')
 
-    if 'OK Gpop ready for requests' in message:
+    if 'ready for requests' in message:
         reply = 'user ' + user
     if 'OK send PASS' in message:
         reply = 'pass ' + password
@@ -49,3 +48,5 @@ if __name__ == "__main__":
     user = input('Username:')
     password = input('Password:')
     retrieve_emails()
+
+
