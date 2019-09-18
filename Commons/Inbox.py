@@ -21,9 +21,18 @@ class Inbox:
         self.lock.release()
 
     # Returns a formatted list of messages in the inbox.
-    def list_messages(self):
-        return "jeejee"
+    def get_mails(self):
+        mails = ''
+
+        for mail in self.mails:
+            mails += mail.__str__() + '\n'
+
+        # Remove extra new line from the end
+        if len(mails) > 0:
+            mails = mails[:-1]
+
+        return mails
 
     # Returns the amount of messages in the list.
     def get_message_amount(self):
-        return 1
+        return len(self.mails)

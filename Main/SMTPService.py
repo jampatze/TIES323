@@ -41,6 +41,7 @@ class SMTPService(Thread):
                             conn.send(str.encode(reply))
                         else:
                             print('(SMTP) Disconnect form: ', addr)
+                            conn.send(str.encode(reply))
                             self.inbox.add_mail(mail)
                             print('(SMTP) New mail: ', mail)
                             conn.close()

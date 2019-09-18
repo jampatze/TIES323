@@ -53,7 +53,7 @@ class POP3Service(Thread):
         elif 'PASS' in message.upper():
             reply = '+OK Welcome.'
         elif 'LIST' in message.upper():
-            reply = '+OK 1 messages' + self.inbox.list_messages()
+            reply = '+OK ' + str(self.inbox.get_message_amount()) + ' messages: \n' + self.inbox.get_mails()
         elif 'QUIT' in message.upper():
             reply = '+OK Farewell.'
 

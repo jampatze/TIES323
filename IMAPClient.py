@@ -1,29 +1,28 @@
 import socket
 
-# Fetches emails from a POP3-server.
+# Fetches emails from a IMAP-server.
 # Author: Jami Laamanen
-# Date: 13.9.2019
+# Date: 18.9.2019
 
 HOST = 'localhost'
-PORT = 110
+PORT = 143
 
 
 # Handles messages from the server
 # Returns the appropriate reply
 def handle_message(data):
     message = data.decode('UTF-8')
+    reply = ''
 
     if 'ready for requests' in message:
-        reply = 'user ' + user
-    if 'OK send PASS' in message:
-        reply = 'pass ' + password
-    if 'OK Welcome' in message:
-        reply = 'list'
-    if 'messages' in message:
+        reply = 'a001 login ' + user + ' ' + password
+    elif 'a001 OK' in message:
+        reply = 'a002 select inbox'
+    elif 'a002 OK' in message:
         print(message)
-        reply = 'quit'
+        reply = 'a006 logout'
 
-    return reply + ' \n'
+    return reply + '\r\n'
 
 
 # Gets emails of the specified user
@@ -35,18 +34,19 @@ def retrieve_emails():
         print('Connection failed')
 
     while True:
-        data = s.recv(1024)
+        data = s.recv(2048)
         if data:
-            if 'Farewell' in data.decode():
+            if 'a006 OK' in data.decode():
                 break
-            s.send(str.encode(handle_message(data)))
+            reply = handle_message(data)
+
+            if not reply.isspace():
+                s.send(str.encode(handle_message(data)))
 
 
 # Main, handles user interaction
 if __name__ == "__main__":
-    print('Welcome to the TIES323 POP3-client')
+    print('Welcome to the TIES323 IMAP-client')
     user = input('Username:')
     password = input('Password:')
     retrieve_emails()
-
-
