@@ -1,4 +1,6 @@
+import os
 import socket
+import ssl
 
 # Fetches emails from a POP3-server.
 # Author: Jami Laamanen
@@ -29,17 +31,21 @@ def handle_message(data):
 # Gets emails of the specified user
 def retrieve_emails():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((HOST, PORT))
-    except:
-        print('Connection failed')
+
+    # SSL
+    path = os.path.dirname(os.path.abspath(__file__))
+    context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=path + '/Main/server.crt')
+    context.load_cert_chain(certfile=path + '/client.crt', keyfile=path + '/client.key')
+    ss = context.wrap_socket(s, server_side=False, server_hostname='TIES323')
+
+    ss.connect((HOST, PORT))
 
     while True:
-        data = s.recv(1024)
+        data = ss.recv(1024)
         if data:
             if 'Farewell' in data.decode():
                 break
-            s.send(str.encode(handle_message(data)))
+            ss.send(str.encode(handle_message(data)))
 
 
 # Main, handles user interaction
