@@ -41,7 +41,7 @@ def retrieve_emails():
             reply = handle_message(data)
 
             if not reply.isspace():
-                s.send(str.encode(handle_message(data)))
+                s.send(str.encode(reply))
 
 
 # Main, handles user interaction
