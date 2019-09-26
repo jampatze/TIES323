@@ -4,6 +4,7 @@ Solutions for the JYU TIES323 Sovellusprotokollat-course.
 ## Mail Protocols:
 
 Extra features:
+* The server listens to all ports simuntaniously, but can only handle one connection to each service at a time
 * POP3 client <-> server communications are secured with SSL. 
   * Use 'TIES323' as the common name when creating the certs.
   * This requires following certs to be created:
