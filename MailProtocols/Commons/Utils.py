@@ -2,7 +2,6 @@
 # Author Jami Laamanen
 # Date 16.9.2019
 import socket
-import ssl
 
 
 # Initializes a socket for listening for connections
