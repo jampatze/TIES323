@@ -16,6 +16,7 @@ def send_data(content, addr):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((HOST, FILE_PORT))
     Utils.send_data(s, content.encode(), addr)
+    s.close()
     print('File sent')
 
 
