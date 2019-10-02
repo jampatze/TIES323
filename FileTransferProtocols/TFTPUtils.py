@@ -67,7 +67,7 @@ def send_file(f, s):
     reply, addr = s.recvfrom(600)
     data = f.read().encode()
     send_data(s, data, addr)
-    print("File sent")
+    print("File sent.")
 
 
 # Sends data over the given connection
@@ -75,10 +75,11 @@ def send_data(s, data, addr):
     block = 1
     for i in range(0, len(data), 512):
         s.sendto(create_data_packet(data[i:i + 512], block), addr)
-        if check_ack(s.recv(600)):
+        if check_ack(s.recv(600), block):
             block += 1
         else:
             print("Didn't receive ack, aborting transfer")
+            break
 
 
 # Creates a data packet from the given, already split data
@@ -91,8 +92,8 @@ def create_data_packet(data, i):
 
 
 # Checks if ack-packet is acceptable
-def check_ack(data):
-    return data[:2] == b'\x00\x04'
+def check_ack(data, id):
+    return data[:2] == b'\x00\x04' and int.from_bytes(data[2:4], byteorder='big') == id
 
 
 # Parses info from a req packet
