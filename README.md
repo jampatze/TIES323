@@ -11,4 +11,8 @@ Extra features:
     * Client-side certs to /MailProtocols/
        ```openssl req -new -newkey rsa:2048 -days 1 -nodes -x509 -keyout client.key -out client.crt```
     * Server-side certs to /MailProtocols/Main/
-       ```openssl req -new -newkey rsa:2048 -days 1 -nodes -x509 -keyout server.key -out server.crt```
+       ```openssl req -new -newkey rsa:2048 -days 1 -nodes -x509 -keyout server.key -out server.crt`
+
+## File transfer protocols
+* All disk operations read and write from the same folder where the scripts are located
+** This is not tested on UNIX-based systems
