@@ -16,4 +16,3 @@ Extra features:
 ## File transfer protocols (28p):
 * All disk operations read and write from the same folder where the scripts are located
   * This is not tested on UNIX-based systems
-* Last 2 points are not done
