@@ -13,6 +13,6 @@ Extra features:
     * Server-side certs to /MailProtocols/Main/  
        ```openssl req -new -newkey rsa:2048 -days 1 -nodes -x509 -keyout server.key -out server.crt```
 
-## File transfer protocols (28p):
+## File transfer protocols (30p):
 * All disk operations read and write from the same folder where the scripts are located
   * This is not tested on UNIX-based systems
